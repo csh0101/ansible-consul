@@ -26,7 +26,6 @@
     - name: Install netaddr dependency on controlling host (with --user)
       pip:
         name: netaddr
-        extra_args: --user
         executable: pip3
       delegate_to: 127.0.0.1
       become: false
