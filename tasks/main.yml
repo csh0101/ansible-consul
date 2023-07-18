@@ -5,6 +5,20 @@
     consul_version: "{{ (lookup('url', 'https://api.github.com/repos/hashicorp/consul/releases/latest', split_lines=False) |
                     from_json).get('tag_name') | replace('v', '') }}"
   when: 'consul_version == "latest"'
+- name: Pip config file create
+  file:
+    path: /etc/pip.conf
+    mode: "0444"
+    state: touch
+  register: script_file_created
+
+- name: Pip configure
+  blockinfile:
+    path: /etc/pip.conf
+    content: |
+        [global]
+        index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+  when: script_file_created.changed
 
 - name: Install python dependencies
   when: consul_install_dependencies | bool
