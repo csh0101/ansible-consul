@@ -33,6 +33,13 @@
 - name: Include checks/asserts
   import_tasks: asserts.yml
 
+- name: Print variables
+  debug:
+    var: "{{ item }}"
+  loop:
+    - vars_file_item
+    - ansible_os_family
+    - ansible_distribution_major_version
 - name: Include OS-specific variables
   include_vars: "{{ vars_file_item }}"
   with_first_found:
