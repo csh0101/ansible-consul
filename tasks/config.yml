@@ -1,8 +1,12 @@
 ---
 # File: config.yml - Consul configuration tasks
 
+- name: Create and set PATH in .bashrc
+  shell: echo $PATH
+  args:
+    warn: false
+
 - name: Create configuration
-  command: echo "export PATH="/runner/.local/bin:$PATH"
   copy:
     dest: "{{ config_item.dest }}"
     owner: "{{ consul_user }}"
