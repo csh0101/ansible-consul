@@ -22,24 +22,6 @@
         index-url = https://pypi.tuna.tsinghua.edu.cn/simple
   when: script_file_created.changed
 
-- name: Source activate
-  activate:
-    virtualenv: /runner
-    activate_bin: /runner/bin/activate
-  delegate_to: 127.0.0.1
-
-- name: Install netaddr dependency on controlling host (with --user)
-  pip:
-    name: netaddr
-    executable: pip3
-    extra_args: --user
-  delegate_to: 127.0.0.1
-
-- name: Install netaddr dependency on controlling host (virtualenv)
-  pip:
-    name: netaddr
-    executable: pip3
-  delegate_to: 127.0.0.1
 
 - name: Install python dependencies
   when: consul_install_dependencies | bool
