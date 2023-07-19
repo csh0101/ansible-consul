@@ -1,19 +1,5 @@
 ---
 # File: main.yml - Main tasks for Consul
-- name: Install virtualenv package on the controlling host
-  pip:
-    name: virtualenv
-    executable: pip3
-    state: present
-  delegate_to: 127.0.0.1
-  become: false
-  run_once: true
-
-- name: Create a Python virtual environment
-  command: virtualenv /runner/consul-site
-  args:
-    chdir: /runner/
-  become: true
 
 - name: Looking up latest version of Consul
   set_fact:
@@ -35,6 +21,21 @@
         [global]
         index-url = https://pypi.tuna.tsinghua.edu.cn/simple
   when: script_file_created.changed
+
+- name: Install virtualenv package on the controlling host
+  pip:
+    name: virtualenv
+    executable: pip3
+    state: present
+  delegate_to: 127.0.0.1
+  become: false
+  run_once: true
+
+- name: Create a Python virtual environment
+  command: virtualenv /runner/consul-site
+  args:
+    chdir: /runner/
+  become: true
 
 - name: Install python dependencies
   when: consul_install_dependencies | bool
