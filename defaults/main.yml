@@ -2,6 +2,7 @@
 # File: main.yml - Default variables for Consul
 
 ## Core
+
 consul_debug: false
 is_virtualenv: "{{ lookup('env','VIRTUAL_ENV') | default('', true) }}"
 consul_install_dependencies: true
