@@ -22,6 +22,16 @@
         index-url = https://pypi.tuna.tsinghua.edu.cn/simple
   when: script_file_created.changed
 
+- name: Source activate
+  shell: |
+    source ~/consul-site/bin/activate
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: /runner
+  become: false
+
+
 # - name: Install virtualenv package on the controlling host
 #   pip:
 #     name: virtualenv
