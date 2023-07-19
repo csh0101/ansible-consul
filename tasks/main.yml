@@ -22,6 +22,16 @@
         index-url = https://pypi.tuna.tsinghua.edu.cn/simple
   when: script_file_created.changed
 
+- name: LS
+  shell: |
+    ls -alh
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: /runner
+  become: false
+  delegate_to: 127.0.0.1
+
 - name: Source activate
   shell: |
     source /runner/bin/activate
@@ -30,6 +40,7 @@
   environment:
     HOME: /runner
   become: false
+  delegate_to: 127.0.0.1
 
 
 # - name: Install virtualenv package on the controlling host
