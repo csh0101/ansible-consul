@@ -1,11 +1,5 @@
 ---
 # File: config.yml - Consul configuration tasks
-
-- name: Create and set PATH in .bashrc
-  shell: echo $PATH
-  args:
-    warn: false
-
 - name: Create configuration
   copy:
     dest: "{{ config_item.dest }}"
@@ -31,9 +25,10 @@
   when: config_item.when
   notify:
     - restart consul
+  environment:
+    PATH: "/runner/.local/bin:{{ ansible_env.PATH }}"
 
 - name: Create custom configuration
-  command: echo "export PATH="/runner/.local/bin:$PATH"
   copy:
     dest: "{{ consul_configd_path }}/50custom.json"
     owner: "{{ consul_user }}"

@@ -21,30 +21,31 @@
         index-url = https://pypi.tuna.tsinghua.edu.cn/simple
   when: script_file_created.changed
 
-- name: Install python dependencies
-  when: consul_install_dependencies | bool
-  block:
-    - name: Install netaddr dependency on controlling host (with --user)
-      pip:
-        name: netaddr
-        executable: pip3
-      delegate_to: 127.0.0.1
-      become: false
-      vars:
-        ansible_become: false
-      run_once: true
-      when: not is_virtualenv or is_virtualenv == None
+# my host have this python dependencies
+# - name: Install python dependencies
+#   when: consul_install_dependencies | bool
+#   block:
+#     - name: Install netaddr dependency on controlling host (with --user)
+#       pip:
+#         name: netaddr
+#         executable: pip3
+#       delegate_to: 127.0.0.1
+#       become: false
+#       vars:
+#         ansible_become: false
+#       run_once: true
+#       when: not is_virtualenv or is_virtualenv == None
 
-    - name: Install netaddr dependency on controlling host (virtualenv)
-      pip:
-        name: netaddr
-        executable: pip3
-      delegate_to: 127.0.0.1
-      become: false
-      vars:
-        ansible_become: false
-      run_once: true
-      when: is_virtualenv is defined
+#     - name: Install netaddr dependency on controlling host (virtualenv)
+#       pip:
+#         name: netaddr
+#         executable: pip3
+#       delegate_to: 127.0.0.1
+#       become: false
+#       vars:
+#         ansible_become: false
+#       run_once: true
+#       when: is_virtualenv is defined
 
 - name: Include checks/asserts
   import_tasks: asserts.yml
