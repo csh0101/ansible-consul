@@ -1,4 +1,9 @@
 ---
+
+- name: Create and set PATH in .bashrc
+  shell: echo $PATH
+  args:
+    warn: false
 # File: config.yml - Consul configuration tasks
 - name: Create configuration
   copy:
