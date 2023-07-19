@@ -22,41 +22,24 @@
         index-url = https://pypi.tuna.tsinghua.edu.cn/simple
   when: script_file_created.changed
 
-- name: LS
-  shell: |
-    ls -alh
-  args:
-    executable: /bin/bash
-  environment:
-    HOME: /runner
-  become: false
-  delegate_to: 127.0.0.1
-
 - name: Source activate
-  shell: |
-    source /runner/bin/activate
-  args:
-    executable: /bin/bash
-  environment:
-    HOME: /runner
-  become: false
+  activate:
+    virtualenv: /runner
+    activate_bin: /runner/bin/activate
   delegate_to: 127.0.0.1
 
+- name: Install netaddr dependency on controlling host (with --user)
+  pip:
+    name: netaddr
+    executable: pip3
+    extra_args: --user
+  delegate_to: 127.0.0.1
 
-# - name: Install virtualenv package on the controlling host
-#   pip:
-#     name: virtualenv
-#     executable: pip3
-#     state: present
-#   delegate_to: 127.0.0.1
-#   become: false
-#   run_once: true
-
-# - name: Create a Python virtual environment
-#   command: virtualenv consul-site
-#   args:
-#     chdir: /runner/
-#   become: true
+- name: Install netaddr dependency on controlling host (virtualenv)
+  pip:
+    name: netaddr
+    executable: pip3
+  delegate_to: 127.0.0.1
 
 - name: Install python dependencies
   when: consul_install_dependencies | bool
