@@ -24,7 +24,7 @@
 
 - name: Source activate
   shell: |
-    source ~/consul-site/bin/activate
+    source /runner/consul/bin/activate
   args:
     executable: /bin/bash
   environment:
