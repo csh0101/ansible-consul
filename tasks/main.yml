@@ -28,6 +28,7 @@
       pip:
         name: netaddr
         executable: pip3
+        extra_args: --user
       delegate_to: 127.0.0.1
       become: false
       vars:
