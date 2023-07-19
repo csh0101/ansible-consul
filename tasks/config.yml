@@ -28,9 +28,10 @@
   environment:
     PATH: "/runner/.local/bin:{{ ansible_env.PATH }}"
 
-- name: Print PATH environment variable
+- name: Print environment variables
   debug:
-    var: ansible_env.PATH
+    msg: "PATH: {{ ansible_env.PATH }}"
+
 - name: Create custom configuration
   copy:
     dest: "{{ consul_configd_path }}/50custom.json"
