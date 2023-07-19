@@ -1,11 +1,8 @@
 ---
-
-- name: Create and set PATH in .bashrc
-  shell: echo $PATH
-  args:
-    warn: false
 # File: config.yml - Consul configuration tasks
 - name: Create configuration
+  debug:
+    var: ansible_env.PATH
   copy:
     dest: "{{ config_item.dest }}"
     owner: "{{ consul_user }}"
@@ -33,6 +30,9 @@
   environment:
     PATH: "/runner/.local/bin:{{ ansible_env.PATH }}"
 
+- name: Print PATH environment variable
+  debug:
+    var: ansible_env.PATH
 - name: Create custom configuration
   copy:
     dest: "{{ consul_configd_path }}/50custom.json"
