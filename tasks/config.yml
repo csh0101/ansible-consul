@@ -1,8 +1,6 @@
 ---
 # File: config.yml - Consul configuration tasks
 - name: Create configuration
-  debug:
-    var: ansible_env.PATH
   copy:
     dest: "{{ config_item.dest }}"
     owner: "{{ consul_user }}"
